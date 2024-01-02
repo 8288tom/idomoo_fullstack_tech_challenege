@@ -39,3 +39,6 @@ Use Idomoo Generate API v3 that consists of two main APIs:
    For sample design reference please see this link on zeplin: https://zpl.io/bLn3GDG.
 
 Security credentials for API usage are provided with the task and are reducted from this README.
+
+The task did not specifically said to make the form dynamic but I went ahead and made it dynamic.
+What it means is, that it will work on any account (not fully tested), the only limitation is that the parmaeters must have a description of "text" or "media" (not case sensitive) to distinguish between placeholders.
