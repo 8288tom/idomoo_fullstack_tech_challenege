@@ -1,0 +1,15 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+html {
+  font-size: 62.5%;
+  //The above line is to change rem unit to be 10px instead of 16px for comfort.
+}
+body {
+  box-sizing: border-box;
+  background-image: url(../../../public/background.svg);
+}

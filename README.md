@@ -1,6 +1,21 @@
 # idomoo_fullstack_tech_challenege
 
-This repository is a my challenge solution for the Full stack developer task by Idomoo.
+This repository is my challenge solution for the Full stack developer task by Idomoo.
+
+How to run on your machine in Dev:
+
+1. Git clone
+2. Inside backend/ create a .env file with the following keys:
+   -API_KEY
+   -API_ACCOUNT
+   -AWS_ACCESS_KEY
+   -AWS_SECRET
+   -AWS_REGION
+   -API_SECRET_HEADER (optional - remove from headers if not used)
+3. Ensure your S3 bucket is publicly available when files are uploaded.
+4. run docker-compose
+
+In order to use in Prod you'll need to configure nginx or other deployment method to serve the application.
 
 The task is as follows:
 
@@ -15,10 +30,12 @@ Use Idomoo Generate API v3 that consists of two main APIs:
    storyboard or by editing scenes together on-the-fly. Example can be found at:
    https://pv.idomoo.com/index.php#/api/15289/Travel%20 proposal%20 demo%20G2
    Steps
-1. As each video contains data drives elements first retrieve the needed elements by using storyboard metadata API.
+2. As each video contains data drives elements first retrieve the needed elements by using storyboard metadata API.
    Use this to get a list of all the parameters in this storyboard. GET /storyboards/{storyboradId}
    Note that elements can be text or images
-1. Build the form accordingly
-1. Check if the video is ready using the check status URL, as described
-1. Display the video using Idomo’s player 2.0 Documentation can be found here
+3. Build the form accordingly
+4. Check if the video is ready using the check status URL, as described
+5. Display the video using Idomo’s player 2.0 Documentation can be found here
    For sample design reference please see this link on zeplin: https://zpl.io/bLn3GDG.
+
+Security credentials for API usage are provided with the task and are reducted from this README.
