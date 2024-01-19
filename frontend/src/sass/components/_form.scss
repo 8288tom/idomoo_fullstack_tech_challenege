@@ -1,0 +1,27 @@
+.container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    position:relative;
+    margin-top:4rem;
+    width:100%;
+    height: 100%;
+ 
+    &__inputs{
+        padding:4rem 0;
+        max-height: 55rem;
+        width:80%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        &::-webkit-scrollbar{
+            display: none;
+        }
+    }
+
+    &__button{
+        position:absolute;
+        top: 110%;
+        left:50%;
+        transform: translate(-50%,-50%);
+    }
+}

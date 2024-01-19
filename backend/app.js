@@ -1,6 +1,12 @@
 const express = require("express");
 const storyboard = require("./controller/storyboard")
 const { uploadToS3 } = require("./utils/s3upload")
+//using multer to parse multipart/form
+const multer = require('multer');
+
+
+const PORT = process.env.PORT || 5172;
+
 require("dotenv").config()
 
 
@@ -8,51 +14,82 @@ const app = express();
 
 
 
-// to parse POST/PUT requests bodies and JSON properly
+// Middleware to parse URL-encoded data and JSON data
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json({ extended: true }))
 
 
 
 
+
+
 // ROUTES:
-app.get("/api/list_storyboards", async (req, res) => {
+//API route to list storyboards
+app.get("/api/list_storyboards", async (req, res, next) => {
     try {
         const data = await storyboard.listStoryboards()
-        res.status(200).json(data)
+        return res.status(200).json(data)
     } catch (error) {
-        console.error("ERROR", error);
-        res.status(500).json("AN ERROR OCCURED TRYING TO USE BACKEND CONTROLLER", error)
+        next(error)
     }
-
 })
-
-app.get("/api/:id", async (req, res) => {
+//API route to get SB parameters
+app.get("/api/:id", async (req, res, next) => {
     try {
-        const data = await storyboard.getStoryboardParams(req, res)
-        res.status(200).json(data)
+        const { id: storyboardId } = req.params;
+        const data = await storyboard.getStoryboardParams(storyboardId)
+        return res.status(200).json(data)
     } catch (error) {
-        console.error("ERROR", error);
-        res.status(500).json("AN ERROR OCCURED TRYING TO USE BACKEND CONTROLLER", error)
-
+        next(error)
     }
 
 })
-
-
-app.post("/api/:id", uploadToS3.single('media'), async (req, res) => {
+//API route for uploading images to S3
+app.post("/api/upload", uploadToS3.single('media'), async (req, res, next) => {
     try {
-        const response = await storyboard.generateStoryboard(req, res)
-        res.status(200).json(response)
-    } catch {
-        console.error("ERROR", error)
-        res.status(500).json("AN ERROR OCCURED TRYING TO USE BACKEND CONTROLLER", error)
+        if (req.file && ["image/jpg", "image/png", "image/jpeg"].includes(req.file.mimetype)) {
+            return res.status(200).json({ "url": req.file.location })
+        }
+        throw new Error("File has to be one of: [png, jpg, jpeg]")
+    } catch (error) {
+        next(error)
+    }
+})
+// API route to generate a SB
+app.post("/api/:id", multer().none(), async (req, res, next) => {
+    const { format, height } = req.query;
+    const { id } = req.params;
+    // To remove the null object created by multer (upload.none() middleware)
+    const body = { ...req.body };
+
+    try {
+        const response = await storyboard.generateStoryboard(id, format, height, body)
+        return res.status(200).json(response)
+    } catch (error) {
+        next(error)
     }
 })
 
+// Centralized error handling middleware
+function errorHandler(err, req, res, next) {
+    const statusCode = err.statusCode || 500;
+    const errorMessage = err.message || "Oops, something went wrong! check the logs"
+    const stack = process.env.NODE_ENV === 'dev' ? err.stack : null
+
+    console.error("An error occured:", err)
+
+    res.status(statusCode).json({
+        error: {
+            message: errorMessage,
+            stack
+        }
+    });
+}
+
+app.use(errorHandler);
 
 
 
-app.listen(5172, () => {
-    console.log("Serving on port 5172")
-})
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});

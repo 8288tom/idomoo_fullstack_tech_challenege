@@ -1,0 +1,39 @@
+.radio-inputs {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        border-radius: 0.5rem;
+        background-color: #ffffff71;
+        box-sizing: border-box;
+        box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+        padding: 0.25rem;
+        width: 50%;
+        font-size: 1.4rem;
+        margin-bottom: 1.6rem;
+        
+        &__label {
+            flex: 1 1 auto;
+            text-align: center;
+
+            & input{
+                display:none;
+            }
+
+            &--name{
+                display: flex;
+                cursor: pointer;
+                align-items: center;
+                justify-content: space-around;
+                border-radius: 0.5rem;
+                border: none;
+                padding: .5rem 0;
+                color: rgba(51, 65, 85, 1);
+                transition: all .15s ease-in-out;
+            } 
+            }
+            
+        &__label input:checked  + .radio-inputs__label--name{
+            background-color: #e7e3e39c;
+            font-weight: 600;
+        }
+}

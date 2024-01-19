@@ -4,18 +4,18 @@ const BASE_API_URL = "https://usa-api.idomoo.com/api/v3";
 const API_SECRET_HEADER = process.env.API_SECRET_HEADER;
 
 module.exports.listStoryboards = async (req, res) => {
+    const token = await oAuthToken.getToken();
+    if (!token) {
+        throw new Error(token.response);
+    }
+    const listStoryboardConfig = {
+        method: "get",
+        url: `${BASE_API_URL}/storyboards`,
+        headers: { "Authorization": `Bearer ${token}` }
+    };
     try {
-        const token = await oAuthToken.getToken();
-        if (!token) {
-            throw new Error("Failed to retrieve token in List Storyboards")
-        }
-        const listStoryboardConfig = {
-            method: "get",
-            url: `${BASE_API_URL}/storyboards`,
-            headers: { "Authorization": `Bearer ${token}` }
-        }
-        const response = await axios(listStoryboardConfig)
-        console.log(response.data)
+        response = await axios(listStoryboardConfig);
+        // loops over the response and extract necessary fields
         const simplifiedData = response.data.storyboards.map(storyboard => {
             return {
                 storyboard_id: storyboard.storyboard_id,
@@ -24,87 +24,73 @@ module.exports.listStoryboards = async (req, res) => {
             }
         })
         return simplifiedData
-    } catch (error) {
-        return { "Error in listStoryboards:": error }
+    }
+    catch (error) {
+        if (error.response) {
+            error.message = error.response.data.errors;
+            error.statusCode = error.response.status;
+            throw error
+        }
+        else throw error
+    }
+};
+
+module.exports.getStoryboardParams = async (storyboardId) => {
+    const token = await oAuthToken.getToken()
+    if (!token) {
+        throw new Error(`Token not retrieved for API request ${token.response}`);
     }
 
-}
-
-
-module.exports.getStoryboardParams = async (req, res) => {
-    const { id: storyboardId } = req.params;
+    const config = {
+        method: "get",
+        url: `${BASE_API_URL}/storyboards/${storyboardId}`,
+        headers: { "Authorization": `Bearer ${token}` }
+    }
     try {
-        const token = await oAuthToken.getToken()
-        if (!token) {
-            throw new Error("Failed to retrieve token in Get Storyboard Params")
-        }
-
-        const getStoryboardParamsConfig = {
-            method: "get",
-            url: `${BASE_API_URL}/storyboards/${storyboardId}`,
-            headers: { "Authorization": `Bearer ${token}` }
-        }
-
-        const response = await axios(getStoryboardParamsConfig)
+        const response = await axios(config)
         return response.data
     } catch (error) {
-        return { "Error in getStoryboardParams :": error }
+        if (error.response) {
+            error.message = error.response.data.errors;
+            error.statusCode = error.response.status;
+            throw error
+        }
+        else throw error
     }
 }
 
-
-module.exports.generateStoryboard = async (req, res) => {
-    if (!req.body || !req.file) {
-        return "No data recieved in body of request"
+module.exports.generateStoryboard = async (storyboardId, format, height, body) => {
+    if (!body) {
+        let error = new Error("No data recieved in body of request");
+        error.statusCode = 401;
+        throw error
     }
-    const { id: storyboardId } = req.params;
-    const { format, height } = req.query;
-    const fileValUrl = req.file.location;
-    let dataFields = [];
-
-    // adding the text placeholders key-value (dynamic):
-    for (const [key, value] of Object.entries(req.body)) {
-        dataFields.push({ "key": key, "val": value })
+    const token = await oAuthToken.getToken();
+    if (!token) {
+        throw new Error(token.response);
     }
-    //Adding the media placeholder key-value:
-    dataFields.push({ "key": "Media1", "val": fileValUrl });
-    /*
-    this is static because of the challenege, if I'd want to make it dynamic 
-    (i.e. multiple media placeholders) I would implement a middleware to check how many files uploaded
-    then give them name (for multer to work) >upload them > add them to the API Call:
-    */
 
+    // construct the "data" array to be used in the "data" inside body of Idomoo API
+    let dataFields = Object.entries(body).map(([key, value]) => ({ "key": key, "val": value }));
+    const config = {
+        method: "post",
+        url: `${BASE_API_URL}/storyboards/generate`,
+        headers: { "Authorization": `Bearer ${token}`, "x-idomoo-api-mode": API_SECRET_HEADER },
+        data: {
+            "storyboard_id": parseInt(storyboardId),
+            "output": { "video": [{ "format": format || "mp4", "height": parseInt(height) || 720 }] },
+            "data": dataFields
+        }
+    };
     try {
-        const token = await oAuthToken.getToken()
-        if (!token) {
-            throw new Error("Failed to retrieve token in Generate Storyboard")
-        }
-        const postGenerateStoryboardConfig = {
-            method: "post",
-            url: `${BASE_API_URL}/storyboards/generate`,
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "x-idomoo-api-mode": API_SECRET_HEADER
-            },
-            data: {
-                "storyboard_id": parseInt(storyboardId),
-                "output": {
-                    "video": [
-                        {
-                            "format": format || "mp4",
-                            "height": parseInt(height) || 720
-                        }
-                    ]
-                },
-                "data": dataFields
-            }
-        }
-        const response = await axios(postGenerateStoryboardConfig)
-        const check_status_url = response.data.check_status_url
-
-        return [response.data, { "check_status": check_status_url }]
+        const response = await axios(config);
+        return response.data;
     } catch (error) {
-        return { "ERROR in generateStoryboard:": error }
+        if (error.response) {
+            error.message = error.response.data.errors;
+            error.statusCode = error.response.status;
+            throw error
+        }
+        else throw error
     }
-
-}
+};

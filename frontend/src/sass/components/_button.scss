@@ -1,0 +1,33 @@
+$color-blue:rgba(4, 192, 202, 0.767);
+$color-white:#fff;
+.btn{
+    display: block;
+    text-transform: capitalize;
+    padding:1.5rem 2rem;
+    border-radius:3rem;
+    font-size: 1.5rem;
+    width:12rem;
+    border:none;
+    cursor: pointer;
+    animation: moveInBottom 0.7s ease-out 0.7s;
+    animation-fill-mode: backwards;
+    &:active{
+        transform: translateY(-1px);
+    }
+    &--light-green{
+        background-color: $color-blue;
+        color:$color-white;
+        transition:background-color 0.4s, color 0.4s, border 0.2s;
+        border: 1px transparent solid;
+        &:hover{
+            border: 1px $color-blue solid;
+            color:$color-blue;
+            background-color: $color-white;
+        }
+        &:active{
+            background-color: rgba(10, 177, 113, 0.698);
+            color:#ffffffbc;
+            transform: translateY(1px);
+        }
+    }
+}

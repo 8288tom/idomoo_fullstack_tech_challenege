@@ -4,15 +4,30 @@
     justify-content: center;
 }
 .section__form{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width:65%;
+    width:33%;
     margin:auto;
     height:80vh;
-    background-color: red;
+    border-radius: 7rem;
+    box-shadow: 0 1rem 2rem rgba(103, 102, 102, 0.67);
+    background: #ffffff71;
+    position:relative;
+    animation: fadeIn 0.3s ease-in 0.3s;
+    animation-fill-mode: backwards;
+
+    @media (max-width:1255px){
+        width:60%;
+    }
+    @media (max-width:710px){
+        width:90%;
+    }
+    @media (max-width:400px){
+        width:100%;
+    }
+
 }
-
 .section__player{
-
+    margin-top:6rem;
+    background-color: #807f7f65;
+    padding:0 0.75rem;
+    box-shadow: 17px 0px 31px -7px rgba(0,0,0,0.36);
 }

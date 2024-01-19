@@ -18,7 +18,8 @@ const uploadToS3 = multer({
         s3: s3,
         bucket: 'idomoofullstackchallenege',
         key: function (req, file, cb) {
-            cb(null, file.originalname); // Use the file's original name as the S3 key
+            const uniqueFileName = Date.now().toString() + '-' + file.originalname;
+            cb(null, uniqueFileName); // Use the file's original name as the S3 key
         }
     })
 });
