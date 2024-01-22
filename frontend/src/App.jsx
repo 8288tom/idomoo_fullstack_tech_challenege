@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
+  // states
   const [selectedSB, setSelectedSB] = useState(null);
   const [storyboardParams, setStoryboardParams] = useState(null);
   const [videoUrl, setVideoUrl] = useState(null);
@@ -34,11 +35,11 @@ function App() {
     }}
     selectedSB ? fetchStoryboardParams(): null},[selectedSB])
 
+  // toast/snackbar envoke function
   const notify = (error)=>{
     toast.error(error,{
         position:"bottom-center",
         autoClose:5000,
-        closeOnClick:true,
         theme:"light",
         hideProgressBar: false,
         closeButton:true
@@ -48,13 +49,15 @@ function App() {
 
   const handleDropdownSelection = (storyBoardId) =>{
     setIsLoadingTransition(true)
+    console.log(`Storyboard ${storyBoardId} was selected!`)
     setSelectedSB(storyBoardId);
   }
 
-  // To generate a video
+  // Sends data taken from Form component to backend to generate a video
  const handleFormData= async (data)=>{
   setIsLoadingTransition(true)
     try{
+      console.log(`Generating video from SB:${selectedSB} using format:${data.params.format} and height:${data.params.height}`)
       const response = await fetch(`/api/${selectedSB}?height=${data.params.height}&format=${data.params.format.toLowerCase()}`,{
         method:'POST',
         headers:{
@@ -65,10 +68,12 @@ function App() {
       const responseData = await response.json()
       if (response.ok && responseData && responseData.check_status_url){
         setVideoUrl(responseData.output.video[0].links.url)
+        console.log(`Linked recieved in response: ${responseData.output.video[0].links.url}`)
         checkVideoStatus(responseData.check_status_url)
         return responseData
       }
       else{
+        console.error(`Request to generate video failed:${responseData.error.message[0].error_description}`)
         notify(responseData.error.message[0].error_description)
         setIsLoadingTransition(false)
       }
@@ -82,19 +87,24 @@ function App() {
     try{
       const response = await fetch(url);
       const data = await response.json();
+      console.log(`Checking VIDEO_AVAILABLE status in 3 seconds interval`)
       if (data.status ==="VIDEO_AVAILABLE"){
+        console.log("VIDEO AVAILABLE!!")
         setIsVideoAvailable(true);
         setIsLoadingTransition(false);
       }
       else if(attempts < 40){
+        console.log(`Video status:${data.status}, attempt:${attempts}... running again`)
         setTimeout(()=> checkVideoStatus(url, attempts + 1), 3000);
       }
       else{
+        console.log(`Final status after 2 minutes: ${data.status}`)
         notify(`Final status after 2 minutes ${data.status})`)
         setIsLoadingTransition(false);
       }
     }catch(e){
-      notify(`Error generating video ${e.message}`)
+      console.error(`Failed to retrieve video:${e}`)
+      notify(`Failed to retrieve video${e.message}`)
       setIsLoadingTransition(false);
     }
   }

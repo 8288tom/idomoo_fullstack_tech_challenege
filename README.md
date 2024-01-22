@@ -15,7 +15,13 @@ How to run on your machine in Dev:
 3. Ensure your S3 bucket is publicly available when files are uploaded.
 4. run docker-compose
 
-In order to use in Prod you'll need to configure nginx or other deployment method to serve the application.
+In order to use in Prod you'll need to configure nginx as reverse proxy or other deployment method to serve the application.
+
+To run the application locally I recommend using docker and docker-copmpose.
+clone the repo, make sure docker is running and run ./dev.sh
+
+This app will work with any Idomoo account ( & api key) the only limitations are that the parmaeters must have a description of "text" or "media" (not case sensitive) to distinguish between placeholders.
+Support for audio parameters is not available (as it's not part of the task).
 
 The task is as follows:
 
@@ -39,6 +45,3 @@ Use Idomoo Generate API v3 that consists of two main APIs:
    For sample design reference please see this link on zeplin: https://zpl.io/bLn3GDG.
 
 Security credentials for API usage are provided with the task and are reducted from this README.
-
-The task did not specifically said to make the form dynamic but I went ahead and made it dynamic.
-What it means is, that it will work on any account (not fully tested), the only limitation is that the parmaeters must have a description of "text" or "media" (not case sensitive) to distinguish between placeholders.

@@ -97,7 +97,7 @@ export default function Input({type, placeholder, register, errors, handleFileUp
                     onMouseLeave={handleMouseLeave}
                     />
                     }
-                    {isHovered && <small className="input--hover">Click to remove</small>}
+                    {isHovered && <small className="input--hovertext">Click to remove</small>}
                 </div>
                 )}
         

@@ -1,0 +1,14 @@
+# Backend Dockerfile for Production
+FROM node:lts
+
+WORKDIR /usr/src/app
+
+COPY backend/package*.json ./
+
+RUN npm install --only=production
+
+COPY backend/ .
+
+EXPOSE 5172
+
+CMD ["node", "app.js"]

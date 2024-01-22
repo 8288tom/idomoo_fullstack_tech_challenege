@@ -9,19 +9,25 @@
     height:80vh;
     border-radius: 7rem;
     box-shadow: 0 1rem 2rem rgba(103, 102, 102, 0.67);
-    background: #ffffff71;
+    background: $color-text-grey2;
     position:relative;
     animation: fadeIn 0.3s ease-in 0.3s;
     animation-fill-mode: backwards;
 
     @media (max-width:1255px){
-        width:60%;
+        width:50%;
+       
     }
-    @media (max-width:710px){
+    @media (max-width:790px){
+        width:70%;
+       
+        & .h2{
+            font-size: 2.5rem;
+        }
+    }
+    @media (max-width:560px){
         width:90%;
-    }
-    @media (max-width:400px){
-        width:100%;
+
     }
 
 }

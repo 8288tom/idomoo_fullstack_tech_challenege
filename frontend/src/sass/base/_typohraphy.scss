@@ -7,14 +7,20 @@ body{
     font-size: $default-font-size;   
 }
 .h2{
+    display:inline-block;
     text-align: center;
     font-size:3rem;
-    padding:2rem 3rem;
     line-height:3rem;
     text-decoration:solid;
     font-weight: 200;
-    margin-bottom: 1.5rem;
+    margin: 2rem 4rem 4.5rem;
     text-transform: capitalize;
     letter-spacing: 0.25rem;
     text-wrap:balance;
+    color:$color-turquoise;
+    transition: color .5s ease-out;
+    cursor:default;
+    &:hover{
+        color:$color-green;
+    }
 }

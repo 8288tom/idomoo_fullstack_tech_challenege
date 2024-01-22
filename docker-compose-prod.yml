@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile.prod
+    env_file:
+      - backend/.env
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "5172:5172"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile.prod
+    volumes:
+      - /path/to/host/static:/www # Mount static files to host
+    environment:
+      - NODE_ENV=production

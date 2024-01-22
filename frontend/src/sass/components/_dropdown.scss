@@ -1,8 +1,6 @@
 .dropdown{
     width: 55rem;
     position:relative;
-    display:flex;
-    justify-content: center;
     height: 5rem;
     padding:3rem 0;
     transition: all .2s;
@@ -67,7 +65,7 @@
             border-radius: 0.3rem;
         }
         &.storyboard a{   
-            color:rgba(4, 4, 4, 0.863);
+            color:$color-primary-dark;
             text-decoration: none;
             display:block;
         }
@@ -76,7 +74,7 @@
         }
         &.storyboard:hover{
             cursor: pointer;
-            border:1px solid rgba(4, 4, 4, 0.863);
+            border:1px solid $color-primary-dark;
         }
     }
     & .storyboard:hover &__img{

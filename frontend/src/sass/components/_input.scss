@@ -1,5 +1,3 @@
-$color-blue:hsl(208, 97%, 43%);
-$color-text-grey:#504e4e;
 // Styles for the .input wrapper
 .input{
     margin-top:1.5rem;
@@ -14,11 +12,11 @@ $color-text-grey:#504e4e;
         line-height:3rem;
         margin:auto;
         width:80%;
-        font-size: inherit;
+        font-size: $default-font-size;
         margin-bottom: 2rem;
 
         &--small-danger{
-            color:rgba(250, 1, 1, 0.661);
+            color:$color-error;
             position:absolute;
             display: block;
         }
@@ -58,7 +56,7 @@ $color-text-grey:#504e4e;
         font-size: 1.3rem;
         text-transform: uppercase;
         padding: 0 0.2rem;
-        letter-spacing:0.25rem;
+        letter-spacing:0.17rem;
     }
 
     // Styles for focus and hover states of both text and media inputs
@@ -91,7 +89,8 @@ $color-text-grey:#504e4e;
         padding:0.5rem 0;
         background-color: transparent;
     }
-    &--hover{
+    &--hovertext{
+        width:100%;
         font-size: 1.2rem;
         color:#939292;
         position:absolute;

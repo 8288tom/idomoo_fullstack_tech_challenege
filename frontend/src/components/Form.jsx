@@ -50,7 +50,7 @@ export default function Form({onFormSubmission, storyboardParams, snackBar}){
         onFormSubmission(submissionData)
     }
     
-    //turn the parameters of the Storyboard into lowecase
+    //mutate the parameters of the Storyboard to lowecase 
     const lowerCasedParams = storyboardParams.data.map(obj=>{
         const lowerCasedObj = Object.fromEntries(
             Object.entries(obj).map(([key,value])=>
@@ -59,7 +59,7 @@ export default function Form({onFormSubmission, storyboardParams, snackBar}){
         return lowerCasedObj
     })
 
-    //Storting the inputs: first all text params then media
+    //Storting the inputs: first all text params then media params 
     const sortedInputs = [...lowerCasedParams].sort((a,b)=>{
         if (a.description==="text" && b.description!=="text"){
             return -1;

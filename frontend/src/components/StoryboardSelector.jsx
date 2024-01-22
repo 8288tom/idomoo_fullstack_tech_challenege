@@ -10,6 +10,7 @@ useEffect(()=>{
         setIsLoadingTransition(true);
         const fetchStoryboards = async()=>{
             try{
+                console.log("Listing Storyboards for Dropdown")
                 const response = await fetch("/api/list_storyboards")
                 if (!response.ok){
                     snackBar("Could not fetch Storyboard list")
@@ -46,7 +47,7 @@ useEffect(()=>{
 
     return (<>
         {storyboardList &&
-        <div className="dropdown">
+        <div className="dropdown flex-center">
         <button className="dropdown__button" disabled={isLoadingTransition}>Choose a Storyboard</button>
             <div className="dropdown__menu">
             <ul className="list">

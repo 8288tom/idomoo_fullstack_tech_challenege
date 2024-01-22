@@ -1,0 +1,17 @@
+# Frontend Dockerfile for Production
+FROM node:lts as build-stage
+
+WORKDIR /usr/src/app
+
+COPY frontend/package*.json ./
+
+RUN npm install
+
+COPY frontend/ .
+
+RUN npm run build
+
+# This stage is just to indicate that the build folder should be served
+# The actual serving will be handled by the local Nginx server
+FROM busybox
+COPY --from=build-stage /usr/src/app/dist /www
