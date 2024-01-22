@@ -16,6 +16,6 @@ services:
       context: .
       dockerfile: frontend/Dockerfile.prod
     volumes:
-      - /path/to/host/static:/www # Mount static files to host
+      - /var/www/idomoo-fullstack-challenge/static:/www # Mount static files to host
     environment:
       - NODE_ENV=production
