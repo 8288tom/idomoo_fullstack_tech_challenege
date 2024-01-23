@@ -9,7 +9,7 @@ export default function Loader({size ="medium", color="black"}){
     const colorStyles = {
         pink:{ background: 'radial-gradient(circle closest-side, #f1baba 90%, #0000) 0/calc(100%/3) 100% space'},
         blue:{ background: 'radial-gradient(circle closest-side, #bae0f1 90%, #0000) 0/calc(100%/3) 100% space'},
-        black:{ background: 'radial-gradient(circle closest-side, #333 90%, #0000) 0/calc(100%/3) 100% space'},
+        black:{ background: 'radial-gradient(circle closest-side, rgba(0,0,0,1)90%, #0000) 0/calc(100%/3) 100% space'},
         green:{ background: 'radial-gradient(circle closest-side, #07b385 90%, #0000) 0/calc(100%/3) 100% space'},
     }
     const loaderStyle={

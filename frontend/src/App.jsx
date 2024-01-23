@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
+
 function App() {
   // states
   const [selectedSB, setSelectedSB] = useState(null);
@@ -143,20 +144,27 @@ function App() {
 
   return (
     <>
-      {isLoadingTransition && 
+     {isLoadingTransition && 
       <div className="flex-center abs-center">
         <Loader size="large" color="black"></Loader>  
       </div>
       }
+      <div className="blobs-container">
+   
+      </div>
+    <div className="app-content">
       <ToastContainer/>
 
       {renderDropdown()}
       {renderForm()}
       {renderPlayer()}
+     
       
- 
-   
-    </>
+      {/* <div className="section__player">
+          <Player url={"https://v.idomoo.com/12314/0000/zo2gzh246z3b78q62a0vshu73i289u6.m3u8"}></Player>
+        </div> */}
+   </div>
+   </>
   )
 }
 

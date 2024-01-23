@@ -6,10 +6,10 @@
     transition: all .2s;
     
     &__button{
-        font-size: 3rem;
+        font-size: 4rem;
         background: none;
         border:none;
-        color:#777;
+        color:$color-text-grey;
         font-family: inherit;
         cursor: pointer;
         transition: color .35s ease-in-out;
@@ -17,7 +17,7 @@
 
     &__button:hover,
     &__button:focus{
-    color:black;
+        color:$color-primary-dark;
     }
 
     &__button:disabled{

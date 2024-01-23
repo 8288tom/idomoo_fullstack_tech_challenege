@@ -13,3 +13,19 @@ body {
   box-sizing: border-box;
   background-image: url(../../../public/background.svg);
 }
+
+.blobs-container{
+  background-image: url(../../../public/polygons-blobs2.svg);
+  background-size: fill;
+  background-repeat:repeat;
+  z-index: 1;
+  width: 100%;
+  opacity: 0.3;
+  height: 100%;
+  position: absolute;
+
+}
+.app-content{
+  position:relative;
+  z-index: 2;
+}

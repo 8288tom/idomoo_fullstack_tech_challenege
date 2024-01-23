@@ -52,7 +52,7 @@
         left:0;
         transition:all 0.3s ease;
         pointer-events: none;
-        z-index: 2;
+        z-index: 3;
         font-size: 1.3rem;
         text-transform: uppercase;
         padding: 0 0.2rem;
@@ -96,7 +96,7 @@
         position:absolute;
         display: block;
         bottom:130%;
-        left:23vh;
+        left:23.5vh;
     }
     // Specific styles for the media input type
     &--media{

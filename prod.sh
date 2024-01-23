@@ -8,7 +8,7 @@ fi
 
 
 echo "Starting Docker Compose..."
-docker-compose -f docker-compose-prod.yml up
+docker-compose -f docker-compose-prod.yml up --build
 
 
 

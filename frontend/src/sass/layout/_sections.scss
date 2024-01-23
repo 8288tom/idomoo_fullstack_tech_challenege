@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-top:2rem;
 }
 .section__form{
     width:33%;
@@ -9,8 +10,9 @@
     height:80vh;
     border-radius: 7rem;
     box-shadow: 0 1rem 2rem rgba(103, 102, 102, 0.67);
-    background: $color-text-grey2;
+    background: rgba(242, 238, 238, 0.85);
     position:relative;
+    top:5rem;
     animation: fadeIn 0.3s ease-in 0.3s;
     animation-fill-mode: backwards;
 
@@ -32,8 +34,18 @@
 
 }
 .section__player{
-    margin-top:6rem;
-    background-color: #807f7f65;
-    padding:0 0.75rem;
+    position: relative;
+    top:6rem;
+    background-color: #807f7fd8;
     box-shadow: 17px 0px 31px -7px rgba(0,0,0,0.36);
+
+     @media (max-width:779px){
+        top:10rem;
+     }
+     @media (max-width:615px){
+        top:10rem;
+     }
+     @media (max-width:515px){
+        top:10rem;
+     }
 }

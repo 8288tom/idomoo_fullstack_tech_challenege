@@ -13,14 +13,10 @@ export default function Player({url}){
             mute:true
         }
         idmPlayerCreate(player_options, "idm-player")
-    },[])
+    },[url])
 
 
     return <>
-    
     <div id="idm-player"></div>
-
-
-
     </>
 }
