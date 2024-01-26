@@ -1,7 +1,7 @@
 .btn{
     display: block;
     text-transform: capitalize;
-    padding:1.5rem 2rem;
+    padding:1.5rem;
     border-radius:3rem;
     font-size: 1.5rem;
     width:12rem;
@@ -12,7 +12,7 @@
     &:active{
         transform: translateY(-1px);
     }
-    &--light-green{
+    &--light-blue{
         background-color: $color-turquoise;
         color:$color-white;
         transition:background-color 0.4s, color 0.4s, border 0.2s;

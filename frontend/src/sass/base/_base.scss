@@ -12,6 +12,7 @@ html {
 body {
   box-sizing: border-box;
   background-image: url(../../../public/background.svg);
+  
 }
 
 .blobs-container{
@@ -20,9 +21,9 @@ body {
   background-repeat:repeat;
   z-index: 1;
   width: 100%;
-  opacity: 0.3;
-  height: 100%;
-  position: absolute;
+  min-height: 100vh;
+  opacity: 0.2;
+  position: fixed;
 
 }
 .app-content{

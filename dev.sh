@@ -6,11 +6,8 @@ if ! docker info > /dev/null 2>&1; then
     exit 1
 fi
 
+echo "Building Docker Images without cache..."
+docker-compose -f docker-compose-dev.yml build --no-cache
 
 echo "Starting Docker Compose..."
-docker-compose -f docker-compose-dev.yml up --build
-
-
-
-#to run in background:
-# docker-compose up -d
+docker-compose -f docker-compose-dev.yml up

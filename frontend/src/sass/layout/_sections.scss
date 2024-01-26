@@ -36,8 +36,20 @@
 .section__player{
     position: relative;
     top:6rem;
-    background-color: #807f7fd8;
+    padding:1rem 0;
+    width: 100%;
+    background-color: rgba(13, 13, 82, 0.271);
     box-shadow: 17px 0px 31px -7px rgba(0,0,0,0.36);
+
+    &--footer{
+        text-align: center;
+        text-wrap: balance;
+        position: relative;
+        top:6rem;
+        @media (max-width:779px) {
+            top:10rem;
+        }
+    }
 
      @media (max-width:779px){
         top:10rem;

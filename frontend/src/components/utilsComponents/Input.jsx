@@ -6,7 +6,7 @@ import Loader from "./Loader";
 
 
 
-export default function Input({type, placeholder, register, errors, handleFileUpload,snackBar}){
+export default function Input({type, placeholder, register, errors, handleFileUpload,snackBar, onChange}){
     const [thumbnailSrc, setThumbnailSrc] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
@@ -22,17 +22,26 @@ export default function Input({type, placeholder, register, errors, handleFileUp
     } 
     
     const handleChange = async (event) => {
+        if (onChange) {
+            onChange(event.target.value)
+        }
         if (type === "media") {
             const file = event.target.files[0];
             const fileSizeMb = file.size / (1024 * 1024); // Convert to MB
-            if (file && ["image/jpg", "image/jpeg", "image/png"].includes(file.type)) {
+            //Regex to test for english letters, numbers, spaces, underscores,hyphens and period
+            const englishFilenameRegex = /^[A-Za-z0-9 _.-]+$/;
+
+            //Checks if file exists & runs regex text on filename and checks if file is of type image
+            if (file && englishFilenameRegex.test(file.name) &&
+            ["image/jpg", "image/jpeg", "image/png"].includes(file.type)) {
                 if (fileSizeMb <= 5) {
                     await uploadFile(file);
-                } else {
+                } 
+                else {
                     snackBar("Image can't be larger than 5 MB");
                 }
             } else {
-                snackBar("INVALID FILE TYPE");
+                snackBar("Invalid filename, filename must be in English");
             }
         }
     };
@@ -67,7 +76,7 @@ export default function Input({type, placeholder, register, errors, handleFileUp
 
     return (
         <> 
-            <div className="input">   
+            <div className={`input ${placeholder ==="Video Title" ? "no-margin-bottom" : ""}`}>   
                 {type ==="media" &&(
                 <div className="input__container">
                     <input 
@@ -106,15 +115,16 @@ export default function Input({type, placeholder, register, errors, handleFileUp
                     <input 
                     type="text" 
                     className="input--text" 
-                    maxLength={100}
-                    {...register(placeholder, {required:true})}
+                    maxLength={placeholder === "Video Title" ? 15 : 100}
+                    {...(typeof register === 'function' ? register(placeholder, { required: true }) : {})}
                     onChange={(event)=>{
                         handleChange(event)
                     }} 
-                    name={placeholder}
-                    />
+                    name={placeholder}                    />
                     <label htmlFor="text">{placeholder}</label>
-                    {errors[placeholder] && <small className="input__container--small-danger">{emptyFieldMessage}</small>}
+                    {typeof register === 'function' && errors[placeholder] && 
+                    <small className="input__container--small-danger">{emptyFieldMessage}</small>
+                    }
                 </div>
             )}
             </div>

@@ -1,15 +1,13 @@
 /* eslint-disable react/prop-types */
 import "../sass/components/_form.scss"
-import Button from "./utilsComponents/Button";
+import "../sass/components/_button.scss"
 import Input from "./utilsComponents/Input"
 import { useState } from "react";
 import Radio from "./utilsComponents/Radio";
 import { useForm } from "react-hook-form"
 
 
-
-export default function Form({onFormSubmission, storyboardParams, snackBar}){
-
+export default function Form({onFormSubmission, storyboardParams, snackBar, setVideoTitle}){
     const [baseApiCall,setBaseApiCall] = useState({
         body:{},
         params:{"height":720, "format":"hls"}
@@ -87,13 +85,13 @@ export default function Form({onFormSubmission, storyboardParams, snackBar}){
         <h2 className="h2">Generate your personalized video</h2>
         <Radio numOfButtons={2} text={["720p","1080p"]} name={"height"} onRadioChange={handleRadioChange}></Radio>
         <Radio numOfButtons={2} text={["HLS","MP4"]} name={"format"} onRadioChange={handleRadioChange}></Radio>
+        <Input type={"text"} placeholder={"Video Title"} onChange={setVideoTitle}/>
         <div className="container__inputs">
             {storyboardInputs}
         </div>
         <div className="container__button">
-            <Button text={"generate!"}></Button>
+        <button type="submit" className="btn flex-center btn--light-blue">Generate!</button>
         </div>
-      
     </form>
     </>)
 }

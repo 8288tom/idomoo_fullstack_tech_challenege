@@ -3,12 +3,27 @@ const storyboard = require("./controller/storyboard")
 const { uploadToS3 } = require("./utils/s3upload")
 //using multer to parse multipart/form
 const multer = require('multer');
-
+const rateLimit = require('express-rate-limit');
+require("dotenv").config()
+const cors = require('cors');
 
 const PORT = process.env.PORT || 5172;
 
-require("dotenv").config()
 
+
+
+
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+    message: 'Too many requests from this IP, please try again after 15 minutes',
+});
+
+// cors restirctions from the same host only.
+const corsOptions = {
+    origin: 'http://localhost:5173',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 
 const app = express();
 
@@ -17,6 +32,8 @@ const app = express();
 // Middleware to parse URL-encoded data and JSON data
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json({ extended: true }))
+
+app.use(cors(corsOptions));
 
 
 

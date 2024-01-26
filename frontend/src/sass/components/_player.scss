@@ -20,3 +20,32 @@
         height: 21.1rem;
     }
 }
+
+.btn__container{
+    display: flex;
+    align-items: center;
+    justify-content:space-evenly;
+    margin-top:1rem;
+    width:100%;
+    & button{
+        background-color: transparent;
+        border: none;
+        width:20%;
+        transition: all 0.3s ease;
+        &:hover{
+            background-color:rgba(177, 218, 246, 0.5);
+            cursor: pointer;
+        } 
+            
+    }
+    & img{
+        fill: currentColor;
+        width:3rem;  
+    }
+}
+
+.header{
+    text-align: center;
+    padding:1rem;
+    text-transform: capitalize;
+}

@@ -48,7 +48,7 @@ useEffect(()=>{
     return (<>
         {storyboardList &&
         <div className="dropdown flex-center">
-        <button className="dropdown__button" disabled={isLoadingTransition}>Choose a Storyboard</button>
+        <button className="dropdown__button" disabled={isLoadingTransition}>Click Here to Select a Storyboard</button>
             <div className="dropdown__menu">
             <ul className="list">
             {dropdownContent}

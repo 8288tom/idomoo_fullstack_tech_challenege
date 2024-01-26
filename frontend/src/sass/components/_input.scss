@@ -1,6 +1,6 @@
 // Styles for the .input wrapper
 .input{
-    margin-top:1.5rem;
+    margin-top:2.4rem;
     display: block;
     // Spacing for all input elements except the last one
     &:not(:last-child){
@@ -34,7 +34,7 @@
         transition: transform 0.2s ease-out;
         &:hover{
             transform: scale(1.15);
-            
+            cursor:no-drop;
         }
     }
 
@@ -93,10 +93,10 @@
         width:100%;
         font-size: 1.2rem;
         color:#939292;
-        position:absolute;
+        position:relative;
         display: block;
-        bottom:130%;
-        left:23.5vh;
+        top:-8.5rem;
+        left:19.5rem;
     }
     // Specific styles for the media input type
     &--media{
