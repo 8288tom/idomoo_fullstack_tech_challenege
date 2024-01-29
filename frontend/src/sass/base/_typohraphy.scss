@@ -18,9 +18,10 @@ body{
     letter-spacing: 0.25rem;
     text-wrap:balance;
     color:$color-turquoise;
-    transition: color .5s ease-out;
+    transition: all .5s ease-out;
     cursor:default;
     &:hover{
         color:$color-green;
+        transform: scale(1.1);
     }
 }

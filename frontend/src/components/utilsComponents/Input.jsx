@@ -29,7 +29,7 @@ export default function Input({type, placeholder, register, errors, handleFileUp
             const file = event.target.files[0];
             const fileSizeMb = file.size / (1024 * 1024); // Convert to MB
             //Regex to test for english letters, numbers, spaces, underscores,hyphens and period
-            const englishFilenameRegex = /^[A-Za-z0-9 _.-]+$/;
+            const englishFilenameRegex = /^[A-Za-z0-9() _.-]+$/;
 
             //Checks if file exists & runs regex text on filename and checks if file is of type image
             if (file && englishFilenameRegex.test(file.name) &&
