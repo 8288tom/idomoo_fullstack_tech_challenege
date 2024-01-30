@@ -21,8 +21,7 @@ const apiLimiter = rateLimit({
 
 // cors restirctions from the same host only.
 const corsOptions = {
-    origin: 'http://localhost:5173',
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+    origin: 'http://localhost:5173'
 }
 
 const app = express();
@@ -94,7 +93,6 @@ function errorHandler(err, req, res, next) {
     const stack = process.env.NODE_ENV === 'dev' ? err.stack : null
 
     console.error("An error occured:", err)
-
     res.status(statusCode).json({
         error: {
             message: errorMessage,

@@ -6,28 +6,34 @@
     transition: all .2s;
     
     &__button{
+        margin-top:68rem;
         font-size: 4rem;
         background: none;
         border:none;
         color:$color-text-grey;
         font-family: inherit;
         cursor: pointer;
-        transition: color .35s ease-in-out;
+        transition: color .2s ease-in-out, margin .4s ease-out;
         }
-
+    &__button:active,
+    &__button:focus{
+        margin:0;
+    }
     &__button:hover,
     &__button:focus{
-        color:$color-primary-dark;
+        color:$color-blue;
+        animation: pulse .3s;
     }
 
     &__button:disabled{
         color:#777;
     }
-
     &__button:focus + &__menu{
         opacity: 1;
         transform: translateY(0);
         visibility: visible;
+        transition: opacity 1s ease, transform .4s ease-in-out;
+
     }
 
     &__img{
@@ -51,11 +57,11 @@
         border-radius: .25rem;
         box-shadow: 0 2px 5px rgba(0,0,0,.3);
         transform: translateY(-1rem);
-        transition: opacity .4s ease-in-out, transform .4s ease-in-out;
 
         opacity: 0;
         visibility: hidden;
         overflow-y:auto;
+     
     }
     
     &__menu li{

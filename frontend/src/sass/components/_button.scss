@@ -9,6 +9,7 @@
     cursor: pointer;
     animation: moveInBottom 0.7s ease-out 0.7s;
     animation-fill-mode: backwards;
+    
     &:active{
         transform: translateY(-1px);
     }
