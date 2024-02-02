@@ -107,8 +107,9 @@ function App() {
         console.log("VIDEO AVAILABLE!!")
         setIsVideoAvailable(true);
         setIsLoadingTransition(false);
+        return;
       }
-      if(attempts < 40){
+      else if(attempts < 40){
         console.log(`Video status: ${data.status}, attempt: ${attempts}... running again`)
         setTimeout(()=> checkVideoStatus(url, attempts + 1), 3000);
       }

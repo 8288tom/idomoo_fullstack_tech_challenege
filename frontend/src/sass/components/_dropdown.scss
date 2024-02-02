@@ -13,7 +13,7 @@
         color:$color-text-grey;
         font-family: inherit;
         cursor: pointer;
-        transition: color .2s ease-in-out, margin .4s ease-out;
+        transition: color .2s ease-in-out, margin .9s ease-out;
         }
     &__button:active,
     &__button:focus{
@@ -32,8 +32,7 @@
         opacity: 1;
         transform: translateY(0);
         visibility: visible;
-        transition: opacity 1s ease, transform .4s ease-in-out;
-
+        transition: opacity 2s ease, transform .4s ease-in-out;
     }
 
     &__img{
@@ -61,7 +60,6 @@
         opacity: 0;
         visibility: hidden;
         overflow-y:auto;
-     
     }
     
     &__menu li{
