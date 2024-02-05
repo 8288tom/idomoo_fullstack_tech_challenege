@@ -47,6 +47,7 @@ module.exports.getStoryboardParams = async (storyboardId) => {
         headers: { "Authorization": `Bearer ${token}` }
     }
     try {
+        console.log(`Fetching params for Storyboard: ${storyboardId}`)
         const response = await axios(config)
         return response.data
     } catch (error) {

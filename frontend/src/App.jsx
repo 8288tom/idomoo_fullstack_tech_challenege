@@ -30,7 +30,7 @@ function App() {
     }
   }, [videoUrl]);
 
-  // Gets a list of SB for the account to be used in the StotryboardSelector component
+  // Gets params from Storyboard
   useEffect(() => {
     if (selectedSB) {
       setIsLoadingTransition(true);
@@ -39,6 +39,7 @@ function App() {
   }, [selectedSB]);
 
   const fetchStoryboardParams = async ()=>{
+    if (typeof(selectedSB) === "number"){
     try{
       const response = await fetch(`/api/${selectedSB}`)
       if (!response.ok){
@@ -52,6 +53,7 @@ function App() {
       console.error(e.message)
       notify(e.message)
     }
+  } else console.error("SELECT STORYBOARD IS NOT A NUMBER", selectedSB) 
   }
   // toast/snackbar envoke function
   const notify = (error)=>{
@@ -91,6 +93,7 @@ function App() {
         setVideoUrl(responseData.output.video[0].links.url)
         console.log(`Linked recieved in response: ${responseData.output.video[0].links.url}`)
         checkVideoStatus(responseData.check_status_url)
+        console.log(`Checking VIDEO_AVAILABLE status in 3 seconds interval`)
         return responseData
         }catch(e){
         notify(e)
@@ -102,7 +105,6 @@ function App() {
     try{
       const response = await fetch(url);
       const data = await response.json();
-      console.log(`Checking VIDEO_AVAILABLE status in 3 seconds interval`)
       if (data.status ==="VIDEO_AVAILABLE"){
         console.log("VIDEO AVAILABLE!!")
         setIsVideoAvailable(true);

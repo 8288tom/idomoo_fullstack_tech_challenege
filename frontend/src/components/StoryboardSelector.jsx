@@ -6,26 +6,28 @@ export default function StoryboardSelector({onSelectionChange,loadingTransition,
     const [storyboardList, setStoryboardList] = useState([]);
     const [isLoadingTransition, setIsLoadingTransition] = loadingTransition;
     
-useEffect(()=>{
-        setIsLoadingTransition(true);
-        const fetchStoryboards = async()=>{
-            try{
-                console.log("Listing Storyboards for Dropdown")
-                const response = await fetch("/api/list_storyboards")
-                if (!response.ok){
-                    snackBar("Could not fetch Storyboard list")
+      // Gets a list of SB for the account to be used in the StotryboardSelector component
+
+    useEffect(()=>{
+            setIsLoadingTransition(true);
+            const fetchStoryboards = async()=>{
+                try{
+                    console.log("Listing Storyboards for Dropdown")
+                    const response = await fetch("/api/list_storyboards")
+                    if (!response.ok){
+                        snackBar("Could not fetch Storyboard list")
+                    }
+                    const data = await response.json()
+                    setStoryboardList(data)
+                    setIsLoadingTransition(false);
                 }
-                const data = await response.json()
-                setStoryboardList(data)
-                setIsLoadingTransition(false);
+                catch(e){
+                    setIsLoadingTransition(false);
+                    snackBar(e.message)
+                }
             }
-            catch(e){
-                setIsLoadingTransition(false);
-                snackBar(e.message)
-            }
-        }
-        fetchStoryboards()
-    },[])
+            fetchStoryboards()
+        },[])
 
 
     const handleDropdownSelection = (storyBoardId) =>{
